@@ -18,7 +18,7 @@ namespace ConsoleApplication1
 
         public Product()
         {
-            Gallery = new String[10]
+            Gallery = new String[10];
         }
 
         public Product(int id, string name, string price, int qty, string image, string desc, string[] gallery)
