@@ -8,13 +8,13 @@ namespace ConsoleApplication1
     {
         public const int GALLERY_LENGTH_MAX = 10;
         // id, name, price, qty, image, desc, gallery < string array>;
-        private int Id { get; set; }
-        private string Name { get; set; }
-        private string Price { get; set; }
-        private int Qty { get; set; }
-        private string Image { get; set; }
-        private string Desc { get; set; }
-        private string[] Gallery { get; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Price { get; set; }
+        public int Qty { get; set; }
+        public string Image { get; set; }
+        public string Desc { get; set; }
+        public string[] Gallery { get; set; }
 
         public Product()
         {
@@ -40,7 +40,7 @@ namespace ConsoleApplication1
             Console.WriteLine("Quantity: " + Qty);
             Console.WriteLine("Image: " + Image);
             Console.WriteLine("Desc: " + Desc);
-            Console.WriteLine("Gallery: " + Gallery);
+            PrintGallery();
         }
 
         public Boolean isOutOfStock()
@@ -50,21 +50,55 @@ namespace ConsoleApplication1
 
         public void AddToGallery(string image)
         {
-            if (Gallery.Length == 10)
+            if (!string.IsNullOrEmpty(Gallery[GALLERY_LENGTH_MAX - 1]))
             {
                 Console.WriteLine("Number of Images (10) reached. Please remove some to add another.");
                 return;
             }
 
-            for (int i = 0; i < 10; ++i)
+            for (int i = 0; i < GALLERY_LENGTH_MAX; ++i)
             {
-                if (string.Equals(Gallery[i], ""))
+                if (string.IsNullOrEmpty(Gallery[i]))
                 {
                     Gallery[i] = image;
                     Console.WriteLine("Image successfully added.");
                     return;
                 }
             }
+        }
+
+        public void PrintGallery()
+        {
+            Console.WriteLine("Gallery:");
+            for (var i = 0; i < GALLERY_LENGTH_MAX; ++i)
+            {
+                Console.Write("\"" + Gallery[i] + "\""); 
+                Console.Write(", ");
+            }
+        }
+
+        public void RemoveFromGalleryPrompt()
+        {
+            PrintGallery();
+            Console.WriteLine("Specify which one you want to remove:");
+            Console.Write("index = ");
+            try
+            {
+                int index = Convert.ToInt32(Console.ReadLine());
+                RemoveFromGallery(index);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        private void RemoveFromGallery(int index)
+        {
+            Gallery[index] = "";
+            Console.WriteLine("Success!");
+            PrintGallery();
         }
         
     }
