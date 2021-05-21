@@ -10,7 +10,7 @@ namespace ConsoleApplication1
         // id, name, price, qty, image, desc, gallery < string array>;
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Price { get; set; }
+        public double Price { get; set; }
         public int Qty { get; set; }
         public string Image { get; set; }
         public string Desc { get; set; }
@@ -18,10 +18,10 @@ namespace ConsoleApplication1
 
         public Product()
         {
-            Gallery = new String[10];
+            Gallery = new String[GALLERY_LENGTH_MAX];
         }
 
-        public Product(int id, string name, string price, int qty, string image, string desc, string[] gallery)
+        public Product(int id, string name, double price, int qty, string image, string desc, string[] gallery)
         {
             Id = id;
             Name = name;
